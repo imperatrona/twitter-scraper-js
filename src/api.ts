@@ -25,6 +25,7 @@ export async function requestApi<T>(
     res = await gotScraping.get({
       url,
       headers,
+      proxyUrl: auth.proxyUrl,
     });
   } catch (err) {
     if (!(err instanceof Error)) {

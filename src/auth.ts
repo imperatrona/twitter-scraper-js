@@ -9,11 +9,18 @@ export class TwitterGuestAuth {
   private guestToken?: string;
   private guestCreatedAt?: Date;
   private xCsrfToken?: string;
+  private _proxyUrl?: string;
 
-  constructor(bearerToken: string, cookie?: string, xCsrfToken?: string) {
+  constructor(
+    bearerToken: string,
+    cookie?: string,
+    xCsrfToken?: string,
+    proxyUrl?: string,
+  ) {
     this.bearerToken = bearerToken;
     this.cookie = cookie;
     this.xCsrfToken = xCsrfToken;
+    this._proxyUrl = proxyUrl;
   }
 
   /**
@@ -95,6 +102,7 @@ export class TwitterGuestAuth {
       headers: {
         Authorization: `Bearer ${this.bearerToken}`,
       },
+      proxyUrl: this._proxyUrl,
     });
 
     if (res.statusCode != 200) {
@@ -126,5 +134,12 @@ export class TwitterGuestAuth {
         this.guestCreatedAt <
           new Date(new Date().valueOf() - 3 * 60 * 60 * 1000))
     );
+  }
+
+  /**
+   * Returns proxy url if exists
+   */
+  get proxyUrl() {
+    return this._proxyUrl;
   }
 }

@@ -24,9 +24,19 @@ export class Scraper {
    * Creates a new Scraper object. Scrapers maintain their own guest tokens for Twitter's internal API.
    * Reusing Scraper objects is recommended to minimize the time spent authenticating unnecessarily.
    */
-  constructor() {
-    this.auth = new TwitterGuestAuth(bearerToken);
-    this.authTrends = new TwitterGuestAuth(bearerToken2);
+  constructor(proxyUrl?: string) {
+    this.auth = new TwitterGuestAuth(
+      bearerToken,
+      undefined,
+      undefined,
+      proxyUrl,
+    );
+    this.authTrends = new TwitterGuestAuth(
+      bearerToken2,
+      undefined,
+      undefined,
+      proxyUrl,
+    );
   }
 
   /**
